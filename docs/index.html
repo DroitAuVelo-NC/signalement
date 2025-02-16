@@ -41,10 +41,9 @@ document.getElementById("myForm").addEventListener("submit", async function(even
         });
         
         let result = await response.json();
-        
-        if (result.status === "success") {
+      
             // Envoi notification Slack
-            fetch("VOTRE_URL_WEBHOOK_SLACK", {
+            fetch("https://hooks.slack.com/services/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", {
                 method: "POST",
                 body: JSON.stringify({
                     text: `🆕 Nouvelle soumission :\n📌 Nom: ${data.name}\n📧 Email: ${data.email}\n🌍 Localisation: (${data.latitude}, ${data.longitude})\n📎 [Fichier](${result.fileUrl})`
@@ -52,10 +51,7 @@ document.getElementById("myForm").addEventListener("submit", async function(even
                 headers: { "Content-Type": "application/json" }
             });
 
-            alert("Données envoyées avec succès !");
-        } else {
-            alert("Erreur lors de l'envoi.");
-        }
+       
     };
 });
 </script>
