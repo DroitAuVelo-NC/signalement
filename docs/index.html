@@ -43,7 +43,7 @@ document.getElementById("myForm").addEventListener("submit", async function(even
         let result = await response.json();
       
             // Envoi notification Slack
-            fetch("https://hooks.slack.com/services/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", {
+            fetch("https://winter-wildflower-9161.ivan-zupancic.workers.dev/", {
                 method: "POST",
                 body: JSON.stringify({
                     text: `🆕 Nouvelle soumission :\n📌 Nom: ${data.name}\n📧 Email: ${data.email}\n🌍 Localisation: (${data.latitude}, ${data.longitude})\n📎 [Fichier](${result.fileUrl})`
