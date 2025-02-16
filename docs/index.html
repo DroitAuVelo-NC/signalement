@@ -34,7 +34,7 @@ document.getElementById("myForm").addEventListener("submit", async function(even
         };
         
         // Envoi des données à Google Apps Script
-        let response = await fetch("https://script.google.com/macros/s/AKfycbwe01gZlYT9xT5YjkvaBCMeq86Sd4AA11L_Zrd-XT-fvqNRv5e-iO2G_WGOReRR4Ejhag/exec", {
+        let response = await fetch("https://script.google.com/macros/s/AKfycbzu8iC7hRnze998MOX8Eeo5cWiQ2MNatSAskhRRxOTzpjmxnMWfmfFIdTucUyjUSr-kdg/exec", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }
