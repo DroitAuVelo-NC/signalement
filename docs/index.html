@@ -34,7 +34,7 @@ document.getElementById("myForm").addEventListener("submit", async function(even
         };
         
         // Envoi des données à Google Apps Script
-        let response = await fetch("https://script.google.com/macros/s/AKfycbzu8iC7hRnze998MOX8Eeo5cWiQ2MNatSAskhRRxOTzpjmxnMWfmfFIdTucUyjUSr-kdg/exec", {
+        let response = await fetch("https://white-truth-2869.ivan-zupancic.workers.dev", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" }
