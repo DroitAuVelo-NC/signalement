@@ -1,0 +1,62 @@
+<html>
+  <body>
+    <title>Signaler</title>
+    
+  </body>
+<form id="myForm">
+    <input type="file" id="fileInput" required>
+    <input type="text" id="name" placeholder="Nom" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="text" id="latitude" placeholder="Latitude" required>
+    <input type="text" id="longitude" placeholder="Longitude" required>
+    <button type="submit">Envoyer</button>
+</form>
+
+<script>
+document.getElementById("myForm").addEventListener("submit", async function(event) {
+    event.preventDefault();
+    
+    let fileInput = document.getElementById("fileInput").files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(fileInput);
+    
+    reader.onload = async function() {
+        let base64File = reader.result.split(',')[1];
+        
+        let data = {
+            file: base64File,
+            fileType: fileInput.type,
+            fileName: fileInput.name,
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            latitude: document.getElementById("latitude").value,
+            longitude: document.getElementById("longitude").value
+        };
+        
+        // Envoi des données à Google Apps Script
+        let response = await fetch("AKfycbw6IPwXlWQFiVn3_qnn8MQrkCZo3J76X90TnEzyfVqxMt8QjgfNntXUpylhp8j0h_K_", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { "Content-Type": "application/json" }
+        });
+        
+        let result = await response.json();
+        
+        if (result.status === "success") {
+            // Envoi notification Slack
+            fetch("VOTRE_URL_WEBHOOK_SLACK", {
+                method: "POST",
+                body: JSON.stringify({
+                    text: `🆕 Nouvelle soumission :\n📌 Nom: ${data.name}\n📧 Email: ${data.email}\n🌍 Localisation: (${data.latitude}, ${data.longitude})\n📎 [Fichier](${result.fileUrl})`
+                }),
+                headers: { "Content-Type": "application/json" }
+            });
+
+            alert("Données envoyées avec succès !");
+        } else {
+            alert("Erreur lors de l'envoi.");
+        }
+    };
+});
+</script>
+</html>
